@@ -1,7 +1,17 @@
-// const fs = require('fs/promises')
-// const contacts = require('./contacts.json')
+const fs = require('fs/promises')
 
-const listContacts = async () => {}
+const contacts = require('./contacts.json')
+
+const getAllContacts = require('./getAllContacts')
+
+const listContacts = async () => {
+  try {
+    const contacts = await getAllContacts()
+    return contacts
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const getContactById = async (contactId) => {}
 
