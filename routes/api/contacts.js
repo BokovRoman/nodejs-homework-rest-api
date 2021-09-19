@@ -1,3 +1,4 @@
+const { json } = require('express')
 const express = require('express')
 const router = express.Router()
 
@@ -47,7 +48,19 @@ router.get('/:contactId', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  res.json({ message: 'template message' })
+  try {
+    // console.log(req.body)
+    const contact = await contactsOperation.addContact(req.body)
+    res.status(201).json({
+      status: 'success',
+      code: 201,
+      data: {
+        contact
+      }
+    })
+  } catch (error) {
+    next(error)
+  }
 })
 
 router.delete('/:contactId', async (req, res, next) => {

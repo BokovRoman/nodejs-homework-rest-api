@@ -1,8 +1,10 @@
 const fs = require('fs/promises')
+const { nanoid } = require('nanoid')
 
 const contacts = require('./contacts.json')
 
 const getAllContacts = require('./getAllContacts')
+const updateContacts = require('./updateContacts')
 
 const listContacts = async () => {
   try {
@@ -30,7 +32,20 @@ const getContactById = async (contactId) => {
 
 const removeContact = async (contactId) => {}
 
-const addContact = async (body) => {}
+const addContact = async (name, email, phone) => {
+  const contacts = await getAllContacts()
+  const id = nanoid(5)
+  const newContact = { name, email, phone, id }
+  contacts.push(newContact)
+
+  try {
+    await updateContacts(contacts)
+    return newContact
+    // console.table(newContact)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
 
 const updateContact = async (contactId, body) => {}
 
