@@ -19,7 +19,31 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
+  try {
+    // console.log(req.params)
+    const { contactId } = req.params
+    const contact = await contactsOperation.getContactById(contactId)
+    if (!contact) {
+      const error = new Error(`Product with id ${contactId} not found`)
+      error.status = 404
+      throw error
+      // res.status(404).json({
+      //   status: 'error',
+      //   code: 404,
+      //   message: `Product with id ${contactId} not found`
+      // })
+      // return
+    }
+    res.json({
+      status: 'success',
+      code: 200,
+      data: {
+        contact
+      }
+    })
+  } catch (error) {
+    next(error)
+  }
 })
 
 router.post('/', async (req, res, next) => {
