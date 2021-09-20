@@ -47,12 +47,20 @@ const addContact = async (name, email, phone) => {
   }
 }
 
-const updateContact = async (contactId, body) => {}
+const updateContactId = async (id, body) => {
+  const contacts = await getAllContacts()
+  const [result] = contacts.filter((contact) => contact.id === id)
+  if (result) {
+    Object.assign(result, body)
+    updateContacts(contacts)
+  }
+  return result
+}
 
 module.exports = {
   listContacts,
   getContactById,
   removeContact,
   addContact,
-  updateContact,
+  updateContactId,
 }
