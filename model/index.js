@@ -30,7 +30,21 @@ const getContactById = async (contactId) => {
   }
 }
 
-const removeContact = async (contactId) => {}
+const removeContact = async (contactId) => {
+  const contacts = await getAllContacts()
+  const idx = contacts.findIndex(
+    (contact) => String(contact.id) === String(contactId)
+  )
+  if (idx === -1) {
+    return null
+  }
+
+  const removeContact = contacts[idx]
+
+  contacts.splice(idx, 1)
+  await updateContacts(contacts)
+  return removeContact
+}
 
 const addContact = async (name, email, phone) => {
   const contacts = await getAllContacts()
