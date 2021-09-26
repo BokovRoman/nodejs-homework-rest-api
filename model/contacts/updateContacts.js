@@ -1,6 +1,6 @@
 
 const fs = require('fs/promises')
-const { contactsPath } = require('../utils')
+const { contactsPath } = require('../../utils')
 
 const updateContacts = async (newContact) => {
   await fs.writeFile(contactsPath, JSON.stringify(newContact))
