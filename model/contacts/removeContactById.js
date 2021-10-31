@@ -10,9 +10,7 @@ const removeContactById = async (contactId) => {
     return null
   }
 
-  const removeContact = contacts[idx]
-
-  contacts.splice(idx, 1)
+  const removeContact = contacts.splice(idx, 1)
   await updateContacts(contacts)
   return removeContact
 }
