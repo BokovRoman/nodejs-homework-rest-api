@@ -6,8 +6,8 @@ const updateContactsById = async (id, body) => {
   const result = contacts.find((contact) => contact.id === id)
   if (result) {
     Object.assign(result, body)
-    updateContacts(contacts)
   }
+  updateContacts(contacts)
   return result
 }
 
