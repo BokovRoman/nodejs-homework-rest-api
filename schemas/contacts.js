@@ -3,7 +3,7 @@ const Joi = require('joi')
 const contactsSchema = Joi.object({
   name: Joi.string()
     .regex(
-      /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
+      /^[a-zA-Zа-яА-ЯЁё]+(([' -][a-zA-Zа-яА-ЯЁё ])?[a-zA-Zа-яА-ЯЁё]*)*$/,
       'Name can only consist of letters, apostrophes, dashes and spaces.'
     )
     .required(),
