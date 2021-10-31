@@ -3,7 +3,7 @@ const updateContacts = require('./updateContacts')
 
 const updateContactsById = async (id, body) => {
   const contacts = await getAllContacts()
-  const [result] = contacts.find((contact) => contact.id === id)
+  const result = contacts.find((contact) => contact.id === id)
   if (result) {
     Object.assign(result, body)
     updateContacts(contacts)
