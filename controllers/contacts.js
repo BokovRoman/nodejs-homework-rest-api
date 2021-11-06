@@ -48,10 +48,25 @@ const updateContactById = async (req, res) => {
   sendSuccessResponse(res, { contact })
 }
 
+const updateFavoriteStatus = async (req, res) => {
+  const { contactId } = req.params
+  const { favorite } = req.body
+  const contact = await Contact.findByIdAndUpdate(
+    contactId,
+    { favorite },
+    { new: true }
+  )
+  if (!contact) {
+    throw new NotFound(`Contact with id=${contactId} not found`)
+  }
+  sendSuccessResponse(res, { contact })
+}
+
 module.exports = {
   listContacts,
   getContactById,
   addContact,
   removeContactById,
   updateContactById,
+  updateFavoriteStatus,
 }
