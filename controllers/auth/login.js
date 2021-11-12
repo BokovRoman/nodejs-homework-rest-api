@@ -8,10 +8,9 @@ const login = async (req, res) => {
   if (!user || !user.comparePassword(password)) {
     throw new Unauthorized('Email or password is wrong')
   }
-//   const newUser = new User({ email })
-//   newUser.setPassword(password)
-//   const { subscription } = await newUser.save()
-//   sendSuccessResponse(res, { email, subscription }, 201)
+  const token = user.createToken()
+  const { subscription } = await User.findByIdAndUpdate(user._id, { token })
+  sendSuccessResponse(res, { token, user: { email, subscription } })
 }
 
 module.exports = login
