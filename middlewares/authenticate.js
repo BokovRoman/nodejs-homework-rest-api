@@ -18,10 +18,6 @@ const authenticate = async (req, res, next) => {
   }
   const [bearer, token] = authorization.split(' ')
 
-  if (bearer !== 'Bearer') {
-    throw new Unauthorized('Not authorized')
-  }
-
   try {
     const { _id } = jwt.verify(token, SECRET_KEY)
     const user = await User.findById(_id)
@@ -31,7 +27,9 @@ const authenticate = async (req, res, next) => {
     req.user = user
     next()
   } catch (error) {
-    throw new Unauthorized('Not authorized')
+    if (bearer !== 'Bearer') {
+      throw new Unauthorized('Not authorized')
+    }
   }
 }
 
