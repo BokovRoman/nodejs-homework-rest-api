@@ -2,8 +2,6 @@ const jwt = require('jsonwebtoken')
 const { Unauthorized } = require('http-errors')
 const { User } = require('../models')
 
-require('dotenv').config()
-
 const { SECRET_KEY } = process.env
 
 const authenticate = async (req, res, next) => {
@@ -35,7 +33,7 @@ const authenticate = async (req, res, next) => {
       throw new Unauthorized('Not authorized')
     }
   } catch (error) {
-    res.status(401).json({ status: 'error', code: status, message: error.message })
+    res.status(401).json({ status: 'error', code: 401, message: error.message })
   }
 }
 
