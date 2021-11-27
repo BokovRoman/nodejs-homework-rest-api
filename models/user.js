@@ -62,6 +62,10 @@ userSchema.methods.setAvatar = function (avatar) {
   this.avatarUrl = avatar
 }
 
+userSchema.methods.setVerifyToken = function (verifyToken) {
+  this.verifyToken = verifyToken
+}
+
 const userSchemaJoi = Joi.object({
   password: Joi.string()
     .regex(
