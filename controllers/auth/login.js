@@ -1,6 +1,6 @@
 const { User } = require('../../models')
 const { sendSuccessResponse } = require('../../utils')
-const { Unauthorized } = require('http-errors')
+const { Unauthorized, BadRequest } = require('http-errors')
 
 const login = async (req, res) => {
   const { email, password } = req.body
@@ -8,6 +8,11 @@ const login = async (req, res) => {
   if (!user || !user.comparePassword(password)) {
     throw new Unauthorized('Email or password is wrong')
   }
+
+  if (!user.verify) {
+    throw new BadRequest('Email is not verify')
+  }
+
   const token = user.createToken()
   const { subscription } = await User.findByIdAndUpdate(user._id, { token })
   sendSuccessResponse(res, { token, user: { email, subscription } })
